@@ -40,11 +40,7 @@ def floatcheck(dec:str)->float:
             print("Error decimal")
 
 def listadd(nombre:str,stock:int,precio:int,disp):
-    inventario={
-                "Nombre":nombre,
-                "Stock":stock,
-                "Precio":precio,
-                "Disponibilidad":disp
+    inventario={"Nombre":nombre,"Stock":stock,"Precio":precio,"Disponibilidad":disp
 
                 }
     Lista.append(inventario)
@@ -53,15 +49,24 @@ def listadd(nombre:str,stock:int,precio:int,disp):
 def listsearch(nombre:str):
     queue=0
     for i in Lista:
-        if i["nombre"]==nombre:
+        if i["Nombre"]==nombre:
             return queue
         queue +=1
+def listdelete(queue)->None:
+    Lista.pop(queue)
+    print("Producto eliminado")
+
+def listupdate():
+    for i in Lista:
+        if i["Stock"]>0:
+            disp="DISPONIBLE"
+            listadd()
 
 def listcheck():
     for i in Lista:
-        print(f"Nombre: {i.get("nombre")}\nStock: {i.get("stock")}\nPrecio: {i.get("precio")}\nDisponible: {i.get("disponibilidad")}")
+        print(f"============= \nNombre: {i.get("Nombre")}\nStock: {i.get("Stock")}\nPrecio: {i.get("Precio")}\nEstado: {i.get("Disponibilidad")} \n============= \n")
 
-disp="NO DISPONIBLE"
+
 def menu():
     while True:
         print(f"========== MENÚ PRINCIPAL ========== \n 1. Agregar producto \n 2. Buscar producto \n 3. Eliminar producto")
@@ -80,6 +85,16 @@ def menu():
                 print(Lista[item])
             else:
                 print("Objeto no encontrado")
+        if opcion==3:
+            nombre=typecheck("Nombre del producto a borrar: ")
+            item=listsearch(nombre)
+            if item== None:
+                print("No encontrado")
+            else:
+                listdelete(item)
+        if opcion==4:
+            listupdate()
+            print("Productos actualizados")
         if opcion==5:
             listcheck()
         if opcion==6:
