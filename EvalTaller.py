@@ -56,15 +56,21 @@ def listdelete(queue)->None:
     Lista.pop(queue)
     print("Producto eliminado")
 
-def listupdate():
-    for i in Lista:
-        if i["Stock"]>0:
-            disp="DISPONIBLE"
-            listadd()
-
+def listupdate(Lista):
+    if len(Lista)==0:
+        print("Lista vacia")
+        return
+    
+    for inventario in Lista:
+        if inventario["Stock"] >0:
+            inventario["Disponibilidad"]="DISPONIBLE"
+        elif inventario["Stock"]==0:
+            inventario["Disponibilidad"]="SIN STOCK"
+           
+disp="NO DISPONIBLE"
 def listcheck():
     for i in Lista:
-        print(f"============= \nNombre: {i.get("Nombre")}\nStock: {i.get("Stock")}\nPrecio: {i.get("Precio")}\nEstado: {i.get("Disponibilidad")} \n============= \n")
+        print(f"*************** \nNombre: {i.get("Nombre")}\nStock: {i.get("Stock")}\nPrecio: {i.get("Precio")}\nEstado: {i.get("Disponibilidad")} \n*************** \n")
 
 
 def menu():
@@ -93,13 +99,16 @@ def menu():
             else:
                 listdelete(item)
         if opcion==4:
-            listupdate()
+            listupdate(Lista)
             print("Productos actualizados")
         if opcion==5:
-            listcheck()
+            if len(Lista)==0:
+                print("Inventario vacio")
+            else :
+                listcheck()
+
         if opcion==6:
-            print("Saliendo")
+            print("Gracias por usar el sistema. Vuelva Pronto")
             break
 menu()
 
-print(Lista)
